@@ -158,9 +158,6 @@ public class MainActivity extends AppCompatActivity {
             lw = (ListView) findViewById(R.id.pyramid_list);
             lw.setAdapter(adapter);
 
-            // List<String> mountainStringList = new ArrayList<>();
-            // for (Mountain mountain : mountains) mountainStringList.add(mountain.getName());
-
             /*
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.mountain_item_layout, R.id.mountain_layout_listview, mountainStringList);
             ListView lw = (ListView) findViewById(R.id.mountain_listview);
