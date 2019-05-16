@@ -1,5 +1,6 @@
 package com.example.project;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private PyramidAdapter adapter;
     private ArrayList<Pyramid> pyramids;
     private String JSONURL = "http://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=b18emigu";
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        context = this;
         new FetchData().execute();
     }
 
@@ -132,31 +135,27 @@ public class MainActivity extends AppCompatActivity {
 
             pyramids = new ArrayList<>();
 
-
-
             try {
                 JSONArray jsonArray = new JSONArray(s);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    JSONObject jsonAuxObject = new JSONObject(jsonObject.getString("auxdata"));
 
-                    Log.d("EMILOBJECT", jsonObject.toString());
+                    Log.d("EMIL NORMAL OBJECT", jsonObject.toString());
+                    Log.d("EMIL AUX OBJECT", jsonAuxObject.toString());
 
-                    /*
                     int id = jsonObject.getInt("ID");
-                    int size = jsonObject.getInt("size");
-                    int cost = jsonObject.getInt("cost");
-                    String name = jsonObject.getString("name");
-                    String type = jsonObject.getString("type");
-                    String company = jsonObject.getString("company");
-                    String location = jsonObject.getString("location");
-                    String category = jsonObject.getString("category");
-                    */
-                    // Mountain mountain = new Mountain(id, size, cost, name, type, company, location, category);
-                    // mountains.add(mountain);
+
+                    Pyramid pyramid = new Pyramid(id);
+                    pyramids.add(pyramid);
                 }
             } catch (JSONException e) {
                 Log.e("EMIL", "E: " + e.getMessage());
             }
+
+            adapter = new PyramidAdapter(context, pyramids);
+            lw = (ListView) findViewById(R.id.pyramid_list);
+            lw.setAdapter(adapter);
 
             // List<String> mountainStringList = new ArrayList<>();
             // for (Mountain mountain : mountains) mountainStringList.add(mountain.getName());
