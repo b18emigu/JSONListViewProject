@@ -2,14 +2,12 @@ package com.example.project;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +23,11 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ListView lw;
+    private PyramidAdapter adapter;
+    private ArrayList<Pyramid> pyramids;
+    private String JSONURL = "http://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=b18emigu";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,35 +36,19 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-
-        /*
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        */
+        new FetchData().execute();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_about) {
             Log.d("EMIL","Show the about page!");
             return true;
@@ -83,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 // Construct the URL for the Internet service
-                URL url = new URL("http://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=brom");
+                URL url = new URL(JSONURL);
 
                 // Create the request to the PHP-service, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -94,9 +81,10 @@ public class MainActivity extends AppCompatActivity {
                 InputStream inputStream = urlConnection.getInputStream();
                 StringBuffer buffer = new StringBuffer();
                 if (inputStream == null) {
-                    // Nothing to do.
+                    Log.d("EMIL", "THERE WAS NOTHING IN THE STREAM!");
                     return null;
                 }
+
                 reader = new BufferedReader(new InputStreamReader(inputStream));
 
                 String line;
@@ -142,13 +130,18 @@ public class MainActivity extends AppCompatActivity {
             // Implement a parsing code that loops through the entire JSON and creates objects
             // of our newly created Mountain class.
 
-            // mountains = new ArrayList<>();
+            pyramids = new ArrayList<>();
+
+
 
             try {
                 JSONArray jsonArray = new JSONArray(s);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
 
+                    Log.d("EMILOBJECT", jsonObject.toString());
+
+                    /*
                     int id = jsonObject.getInt("ID");
                     int size = jsonObject.getInt("size");
                     int cost = jsonObject.getInt("cost");
@@ -157,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                     String company = jsonObject.getString("company");
                     String location = jsonObject.getString("location");
                     String category = jsonObject.getString("category");
-
+                    */
                     // Mountain mountain = new Mountain(id, size, cost, name, type, company, location, category);
                     // mountains.add(mountain);
                 }
