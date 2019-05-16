@@ -29,8 +29,8 @@ public class PyramidAdapter extends ArrayAdapter<Pyramid> {
 
         Pyramid pyramid = pyramids.get(position);
 
-        ImageView image = (ImageView) item.findViewById(R.id.pyramidImage);
-        image.setImageDrawable(pyramid.getImage());
+        // ImageView image = (ImageView) item.findViewById(R.id.pyramidImage);
+        // image.setImageDrawable(pyramid.getImage());
 
         TextView name = (TextView) item.findViewById(R.id.pyramidName);
         name.setText(pyramid.getName());

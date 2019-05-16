@@ -127,14 +127,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            // This code executes after we have received our data. The String object o holds
-            // the un-parsed JSON string or is null if we had an IOException during the fetch.
-
-            // Implement a parsing code that loops through the entire JSON and creates objects
-            // of our newly created Mountain class.
 
             pyramids = new ArrayList<>();
-
             try {
                 JSONArray jsonArray = new JSONArray(s);
                 for (int i = 0; i < jsonArray.length(); i++) {
@@ -145,8 +139,15 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("EMIL AUX OBJECT", jsonAuxObject.toString());
 
                     int id = jsonObject.getInt("ID");
+                    int volume = jsonAuxObject.getInt("volume");
+                    String pharaoh = jsonAuxObject.getString("pharaoh");
+                    String name = jsonAuxObject.getString("name");
+                    String dynasty = jsonAuxObject.getString("dynasty");
+                    String location = jsonAuxObject.getString("location");
+                    String image = jsonAuxObject.getString("img");
 
-                    Pyramid pyramid = new Pyramid(id);
+
+                    Pyramid pyramid = new Pyramid(id, volume, pharaoh, name, dynasty, location, image);
                     pyramids.add(pyramid);
                 }
             } catch (JSONException e) {

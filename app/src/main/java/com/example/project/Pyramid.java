@@ -1,6 +1,7 @@
 package com.example.project;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -24,14 +25,16 @@ public class Pyramid {
     }
 
     public String getInformation() {
-        return "Pyramiden är från den " + dynasty + ", den finns i " + location + " och har en storlek av " + volume + " kubikmeter!";
+        return "Pyramiden är från den " + dynasty + " dynastyin, den finns i " + location + " och har en storlek av " + volume + " kubikmeter!";
     }
 
     public Drawable getImage() {
         try {
-            InputStream is = (InputStream) new URL(image).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            return d;
+            Log.d("EMIL IMAGE: ", image);
+
+            InputStream stream = (InputStream) new URL(image).getContent();
+            Drawable drawable = Drawable.createFromStream(stream, "src name");
+            return drawable;
         } catch (Exception e) {
             return null;
         }
