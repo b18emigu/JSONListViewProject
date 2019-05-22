@@ -57,7 +57,14 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.action_about) {
             Log.d("EMIL","Show the about page!");
-            Toast.makeText(getApplicationContext(), Html.fromHtml("<strong>Pyramid Explorer</strong><br><br>For those who love traveling and want to experience the most from the great Pyramids!"), Toast.LENGTH_LONG).show();
+            Toast.makeText(
+                    getApplicationContext(),
+                    Html.fromHtml("<strong>Pyramid Explorer</strong>" +
+                            "<br><br>" +
+                            "For those who love traveling and want to experience the most from the great Pyramids!" +
+                            "We are located in Egypt and this app is a must for <em>YOU</em> if you're visiting Egypt." +
+                            "<br><br>Here you should be able to find all the necessary information about the great Pyramids!"),
+                    Toast.LENGTH_LONG).show();
             return true;
         }
 
@@ -161,18 +168,6 @@ public class MainActivity extends AppCompatActivity {
             adapter = new PyramidAdapter(context, pyramids);
             lw = (ListView) findViewById(R.id.pyramid_list);
             lw.setAdapter(adapter);
-
-            /*
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.mountain_item_layout, R.id.mountain_layout_listview, mountainStringList);
-            ListView lw = (ListView) findViewById(R.id.mountain_listview);
-            lw.setAdapter(arrayAdapter);
-            lw.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Toast.makeText(getApplicationContext(), mountains.get(position).getToastInformation(), Toast.LENGTH_LONG).show();
-                }
-            });
-            */
         }
     }
 }

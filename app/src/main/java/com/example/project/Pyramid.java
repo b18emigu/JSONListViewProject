@@ -1,15 +1,5 @@
 package com.example.project;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.ImageView;
-
-import java.io.InputStream;
-import java.net.URL;
-
 public class Pyramid {
     private int id, volume;
     private String pharaoh, name, dynasty, location, image;
@@ -51,6 +41,7 @@ public class Pyramid {
     public String getName() {
         return name;
     }
+
     public String getDynasty() {
         return dynasty;
     }
