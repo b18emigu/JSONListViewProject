@@ -1,7 +1,11 @@
 package com.example.project;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ImageView;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -28,16 +32,8 @@ public class Pyramid {
         return "Pyramiden är från den " + dynasty + " dynastyin, den finns i " + location + " och har en storlek av " + volume + " kubikmeter!";
     }
 
-    public Drawable getImage() {
-        try {
-            Log.d("EMIL IMAGE: ", image);
-
-            InputStream stream = (InputStream) new URL(image).getContent();
-            Drawable drawable = Drawable.createFromStream(stream, "src name");
-            return drawable;
-        } catch (Exception e) {
-            return null;
-        }
+    public String getImage() {
+        return image;
     }
 
     public int getId() {

@@ -1,5 +1,9 @@
 package com.example.project;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +12,7 @@ import android.content.Context;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +34,8 @@ public class PyramidAdapter extends ArrayAdapter<Pyramid> {
 
         Pyramid pyramid = pyramids.get(position);
 
-        // ImageView image = (ImageView) item.findViewById(R.id.pyramidImage);
-        // image.setImageDrawable(pyramid.getImage());
+        ImageView image = (ImageView) item.findViewById(R.id.pyramidImage);
+        new DownloadImageTask(image).execute(pyramid.getImage());
 
         TextView name = (TextView) item.findViewById(R.id.pyramidName);
         name.setText(pyramid.getName());
@@ -42,5 +47,30 @@ public class PyramidAdapter extends ArrayAdapter<Pyramid> {
         information.setText(pyramid.getInformation());
 
         return item;
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 }

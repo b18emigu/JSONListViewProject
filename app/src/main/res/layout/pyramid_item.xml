@@ -3,17 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--
+
     <ImageView
         android:id="@+id/pyramidImage"
         android:layout_width="150dp"
         android:layout_height="200dp"/>
-    -->
-
-    <!-- android:layout_toRightOf="@id/pyramidImage" -->
 
     <TextView
         android:id="@+id/pyramidPharaoh"
+        android:layout_toRightOf="@id/pyramidImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
@@ -22,6 +20,7 @@
 
     <TextView
         android:id="@+id/pyramidName"
+        android:layout_toRightOf="@id/pyramidImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/pyramidPharaoh"
@@ -30,6 +29,7 @@
 
     <TextView
         android:id="@+id/pyramidInformation"
+        android:layout_toRightOf="@id/pyramidImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/pyramidName"

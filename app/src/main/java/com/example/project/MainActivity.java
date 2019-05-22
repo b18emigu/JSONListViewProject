@@ -5,10 +5,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView lw;
     private PyramidAdapter adapter;
     private ArrayList<Pyramid> pyramids;
-    private String JSONURL = "http://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=b18emigu";
+    private final String JSONURL = "http://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=b18emigu";
     private Context context;
 
     @Override
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setLogo(R.drawable.icon);
 
         context = this;
         new FetchData().execute();
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.action_about) {
             Log.d("EMIL","Show the about page!");
+            Toast.makeText(getApplicationContext(), Html.fromHtml("<strong>Pyramid Explorer</strong><br><br>For those who love traveling and want to experience the most from the great Pyramids!"), Toast.LENGTH_LONG).show();
             return true;
         }
 
